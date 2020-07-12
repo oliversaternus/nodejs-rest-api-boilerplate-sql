@@ -1,2 +1,2 @@
-# file-server
-express server that stores files and serves them for donwload. It provides an endpoint to create a presigned download url.
+# nodejs-rest-api-boilerplate-sql
+a rest api boilerplate with nodeJS, sequelize and sqlite
