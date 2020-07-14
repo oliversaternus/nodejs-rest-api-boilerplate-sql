@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import { Post } from "./Post";
+import { Post } from "../models/Post";
 import autoCatch from '../tools/autocatch';
+import { autoVerifyUser } from '../tools/auth';
 
 export const postRouterFactory = () => Router()
 
@@ -14,13 +15,7 @@ export const postRouterFactory = () => Router()
     user ? res.json(user) : next({ statusCode: 404 });
   }))
 
-  .post('/posts', autoCatch(async (req, res, next) => {
-    const user = await Post.create(req.body);
+  .post('/posts', autoCatch(autoVerifyUser(async (req, res, currentUser, next) => {
+    const user = await Post.create({ ...req.body, userId: currentUser.id });
     res.json(user);
-  }))
-
-  .put('/posts/:id', autoCatch(async (req, res, next) => {
-    const user = await Post.findByPk(req.params.id);
-    await user.update(req.body);
-    res.json(user);
-  }));
+  })));
