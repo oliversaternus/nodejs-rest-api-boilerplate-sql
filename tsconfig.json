@@ -14,7 +14,7 @@
       "lib": ["es2017"]
     },
     "include": [
-      "src"
+      "src", "test/users", "test/utils.ts"
     ],
     "exclude": [
       "node_modules",

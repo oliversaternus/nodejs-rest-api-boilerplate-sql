@@ -15,6 +15,10 @@ export const authRouterFactory = () => Router()
                 password: hashJS.sha256().update(password).digest("hex")
             }
         });
+        if (!user) {
+            res.sendStatus(401);
+            return;
+        }
         const token: string = jwt.sign(
             { data: { id: user.id, role: user.role } },
             secret,

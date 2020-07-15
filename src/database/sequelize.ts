@@ -4,8 +4,12 @@ import * as path from "path";
 import { User } from '../models/User';
 import { Post } from '../models/Post';
 
-export const sequelize = new Sequelize({
+type Options = { dialect: "mysql" | "postgres" | "sqlite" | "mariadb" | "mssql", storage: string };
+
+export const sequelize = (options?: Options) => new Sequelize({
   dialect: 'sqlite',
   storage: path.join(__dirname, "../", "../", "data.db"),
   models: [User, Post],
+  logging: false,
+  ...options
 });
